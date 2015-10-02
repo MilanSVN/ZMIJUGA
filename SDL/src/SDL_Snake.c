@@ -7,8 +7,11 @@
 
 #include "SDL_Snake.h"
 
+static SDL_Rect sdlRect;
+
 static SDL_Surface* screen = NULL;
 static SDL_Surface* background = NULL;
+static SDL_Surface* playgound = NULL;
 static SDL_Surface* snake = NULL; 
 static SDL_Surface* delSnake = NULL; 
 
@@ -26,6 +29,7 @@ uint8_t initGUI(void)
   
   screen = SDL_SetVideoMode(1200, 900, 32, SDL_DOUBLEBUF); 
   background = SDL_LoadBMP("../resources/background.bmp");
+  playgound = SDL_LoadBMP("../resources/background.bmp");
   snake = SDL_LoadBMP("../resources/snake.bmp");
   delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
 
@@ -43,7 +47,15 @@ uint8_t initGUI(void)
   return 0;
 }
 
-// SDL GUI START
+uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic)
+{
+  if (pic == NULL)
+  {
+    pic = playgound;
+  }
+  SDL_BlitSurface(pic, NULL, screen, &dstOffset); ///<	Add pic to the sceen
+  return SDL_Flip(screen);
+}
 
 
 /**
@@ -132,12 +144,13 @@ static void printBall(uint32_t x, uint32_t y, uint8_t lane)  // x,y - centar lop
 */
 void quit()
 {
-	SDL_FreeSurface(background);
-	SDL_FreeSurface(snake);
-	SDL_FreeSurface(screen);	
-	SDL_FreeSurface(delSnake);
-
-	SDL_Quit(); 
+  SDL_FreeSurface(background);
+  SDL_FreeSurface(snake);
+  SDL_FreeSurface(screen);	
+  SDL_FreeSurface(delSnake);
+  SDL_FreeSurface(playgound);
+  
+  SDL_Quit(); 
 }
 // SDL GUI END
 

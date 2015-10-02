@@ -2,6 +2,8 @@
 #include "../src/SDL_Snake.h"
 #include "../include/SDL.h"
 
+static SDL_Rect sdlRectT;
+static SDL_Surface* pic = NULL;
 
 TEST_GROUP(SDL_Snake_Animation);
 
@@ -9,18 +11,19 @@ TEST_GROUP(SDL_Snake_Animation);
 TEST_GROUP_RUNNER(SDL_Snake_Animation)
 {
 	RUN_TEST_CASE(SDL_Snake_Animation, SDL_Init);
-	//RUN_TEST_CASE(SDL_Snake_Animation, BMP_Load);
+	RUN_TEST_CASE(SDL_Snake_Animation, drawPicture);
 	//RUN_TEST_CASE(SDL_Snake_Animation, Animation);
 }
 
 TEST_SETUP(SDL_Snake_Animation)
 {
-
+ 
 }
 
 TEST_TEAR_DOWN(SDL_Snake_Animation)
 {
-  quit();
+  //quit();
+  //SDL_FreeSurface(pic);
 }
 
 // Prvi test - SDL inicijalizacija
@@ -29,10 +32,15 @@ TEST(SDL_Snake_Animation, SDL_Init)
   TEST_ASSERT_EQUAL(0, initGUI());
 }
 
-// Drugi test - Ucitavanje resursa
-TEST(SDL_Snake_Animation, BMP_Load)
+// Drugi test - Crtanje slike
+TEST(SDL_Snake_Animation, drawPicture)
 {
-  TEST_ASSERT_EQUAL(0, initGUI());
+  sdlRectT.x = 10;
+  sdlRectT.y = 10;
+  uint8_t a = 5;
+  a = drawPic (sdlRectT, pic);
+  TEST_ASSERT_EQUAL(0, a);
+  SDL_Delay(5000);
 }
 
 // Treci test - Animacija
