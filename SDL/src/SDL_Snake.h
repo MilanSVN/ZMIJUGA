@@ -7,7 +7,12 @@
 #include "../include/SDL.h"
 
 #define INIT_OFFSET_X 40
-
+#define INIT_OFFSET_PLAYGROUND_X 10
+#define INIT_OFFSET_PLAYGROUND_Y 100
+#define PLAYGROUND_X 600
+#define PLAYGROUND_Y 600
+#define SNAKE_X 10
+#define SNAKE_Y 10
 
 typedef enum
 {
@@ -25,7 +30,7 @@ typedef struct track_console
 	
 }TRACK_CONSOLE;
 
-
+SDL_Rect getPositionForLastPic(void); ///< For testing
 uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic);
 uint8_t initGUI(void);
 void quit();

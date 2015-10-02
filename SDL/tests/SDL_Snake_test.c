@@ -5,6 +5,12 @@
 static SDL_Rect sdlRectT;
 static SDL_Surface* pic = NULL;
 
+static SDL_Surface* screen = NULL;
+static SDL_Surface* background = NULL;
+static SDL_Surface* playgound = NULL;
+static SDL_Surface* snake = NULL; 
+static SDL_Surface* delSnake = NULL; 
+
 TEST_GROUP(SDL_Snake_Animation);
 
 
@@ -12,18 +18,31 @@ TEST_GROUP_RUNNER(SDL_Snake_Animation)
 {
 	RUN_TEST_CASE(SDL_Snake_Animation, SDL_Init);
 	RUN_TEST_CASE(SDL_Snake_Animation, drawPicture);
+	RUN_TEST_CASE(SDL_Snake_Animation, drawPlayground);
 	//RUN_TEST_CASE(SDL_Snake_Animation, Animation);
 }
 
 TEST_SETUP(SDL_Snake_Animation)
 {
+  initGUI();
  
+  screen = SDL_SetVideoMode(700, 700, 32, SDL_DOUBLEBUF); 
+  background = SDL_LoadBMP("../resources/background.bmp");
+  playgound = SDL_LoadBMP("../resources/background.bmp");
+  snake = SDL_LoadBMP("../resources/snake.bmp");
+  delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
 }
 
 TEST_TEAR_DOWN(SDL_Snake_Animation)
 {
-  //quit();
-  //SDL_FreeSurface(pic);
+  quit();
+  SDL_FreeSurface(pic);
+  
+//   SDL_FreeSurface(background);
+//   SDL_FreeSurface(snake);
+//   SDL_FreeSurface(screen);	
+//   SDL_FreeSurface(delSnake);
+//   SDL_FreeSurface(playgound);
 }
 
 // Prvi test - SDL inicijalizacija
@@ -40,44 +59,21 @@ TEST(SDL_Snake_Animation, drawPicture)
   uint8_t a = 5;
   a = drawPic (sdlRectT, pic);
   TEST_ASSERT_EQUAL(0, a);
-  SDL_Delay(5000);
+  
 }
 
 // Treci test - Animacija
-TEST(SDL_Snake_Animation, Animation)
+TEST(SDL_Snake_Animation, drawPlayground)
 {
-// 	initGUI(SDL);
-// 	int it = 0;
-// 	for (;it < 10; it++)
-// 	{
-// 	  pins.pins[it] = it % 2;
-// 	}
-// 	
-// 	bp1.x = 15;
-// 	bp2.x = 125;
-// 	
-// 	bg1.lane_number = 0;
-// 	bg2.lane_number = 2;
-// 	drawKnockedPinsAndTable(&bg1, 1, pins);
-// 	drawKnockedPinsAndTable(&bg2, 1, pins);
-// 	uint32_t i;
-// 	for (i = 0; i < 450; i++)
-// 	{	
-// 		SDL_Delay(10);
-// 		bp1.y = i;
-// 		bp2.y = i;
-// 		if (i < 300)
-// 		animateBallMovement(&bg1, 0, bp1);
-// 		animateBallMovement(&bg2, 0, bp2);
-// 		SDL_Delay(5);
-// 		//drawKnockedPinsAndTable(&bg1, 2, pins);
-// 		//drawKnockedPinsAndTable(&bg2, 3, pins);
-// 		//drawKnockedPinsAndTable(&bg1, 1, pins);
-// 	}
-// 	drawKnockedPinsAndTable(&bg1, 1, pins);
-// 	SDL_Delay(2000);
-// 	drawKnockedPinsAndTable(&bg1, 1, pins);
-// 	TEST_ASSERT_EQUAL(0, 0);
+  sdlRectT.x = INIT_OFFSET_PLAYGROUND_X;
+  sdlRectT.y = INIT_OFFSET_PLAYGROUND_Y;
+  drawPic (sdlRectT, background);
+  
+  sdlRectT = getPositionForLastPic();
+  TEST_ASSERT_EQUAL(INIT_OFFSET_PLAYGROUND_X, sdlRectT.x);
+  TEST_ASSERT_EQUAL(INIT_OFFSET_PLAYGROUND_Y, sdlRectT.y);
+  SDL_Delay(5000);
+
 }
 
 

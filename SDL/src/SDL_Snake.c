@@ -15,7 +15,15 @@ static SDL_Surface* playgound = NULL;
 static SDL_Surface* snake = NULL; 
 static SDL_Surface* delSnake = NULL; 
 
-
+/**
+ * @brief Function for testing
+ * @retval SDL_Rect Position For Last Pic .
+ */
+static SDL_Rect testRect;
+SDL_Rect getPositionForLastPic(void)
+{
+  return testRect;
+}
 
 
 uint8_t initGUI(void)
@@ -27,7 +35,7 @@ uint8_t initGUI(void)
     return 1;
   }
   
-  screen = SDL_SetVideoMode(1200, 900, 32, SDL_DOUBLEBUF); 
+  screen = SDL_SetVideoMode(700, 700, 32, SDL_DOUBLEBUF); 
   background = SDL_LoadBMP("../resources/background.bmp");
   playgound = SDL_LoadBMP("../resources/background.bmp");
   snake = SDL_LoadBMP("../resources/snake.bmp");
@@ -53,6 +61,7 @@ uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic)
   {
     pic = playgound;
   }
+  testRect = dstOffset;
   SDL_BlitSurface(pic, NULL, screen, &dstOffset); ///<	Add pic to the sceen
   return SDL_Flip(screen);
 }
