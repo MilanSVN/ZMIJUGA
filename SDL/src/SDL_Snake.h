@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#include "../include/SDL.h"
+#include "../../include/SDL.h"
 
 #define INIT_OFFSET_X 40
 #define INIT_OFFSET_PLAYGROUND_X 10
@@ -31,8 +31,8 @@ typedef struct track_console
 }TRACK_CONSOLE;
 
 SDL_Rect getPositionForLastPic(void); ///< For testing
-uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic);
-uint8_t initGUI(void);
+uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic); ///< This function returns 0 if successful, or -1 if there was an error.
+uint8_t initGUI(void); 
 void quit();
 #endif
 

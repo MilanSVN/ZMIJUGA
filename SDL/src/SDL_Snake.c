@@ -52,6 +52,7 @@ uint8_t initGUI(void)
   Uint32 colorkey3 = SDL_MapRGB( pin -> format, 255, 255, 255);
   SDL_SetColorKey(pin, SDL_SRCCOLORKEY, colorkey3); ///<	Set pin key color to white
 */
+  
   return 0;
 }
 

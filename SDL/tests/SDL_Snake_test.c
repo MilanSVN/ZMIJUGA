@@ -1,6 +1,6 @@
 #include "../../unity/unity_fixture.h"
 #include "../src/SDL_Snake.h"
-#include "../include/SDL.h"
+#include "../../include/SDL.h"
 
 static SDL_Rect sdlRectT;
 static SDL_Surface* pic = NULL;
