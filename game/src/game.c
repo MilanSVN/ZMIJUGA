@@ -13,10 +13,12 @@ static SDL_Surface* background = NULL;
 static SDL_Surface* playgound = NULL;
 static SDL_Surface* snake = NULL; 
 static SDL_Surface* delSnake = NULL; 
+static SDL_Surface* screen = NULL;
 
 uint8_t matrix[PLAYGROUND_Y / SNAKE_Y][PLAYGROUND_X / SNAKE_X];
 uint8_t height;
 uint8_t width;
+uint8_t direction;
 POSITION head;
 POSITION tail;
 
@@ -41,25 +43,40 @@ uint8_t initGame(void)
   playgound = SDL_LoadBMP("../resources/background.bmp");
   snake = SDL_LoadBMP("../resources/snake.bmp");
   delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
+  screen = getScreen();
 
   if ( playgound == NULL || background == NULL || snake == NULL || delSnake == NULL)
   {
     return 2;
   }
   
+  Uint32 colorkey1 = SDL_MapRGB( snake -> format, 100, 100, 100);
+  SDL_SetColorKey(snake, SDL_SRCCOLORKEY, colorkey1); ///< Set snake key color
+  //Uint32 colorkey2 = SDL_MapRGB( snake -> format, 110, 100, 100);
+  SDL_SetColorKey(playgound, SDL_SRCCOLORKEY, colorkey1); ///< Set snake key color
+  
  sdlRect.x = INIT_OFFSET_PLAYGROUND_X;
  sdlRect.y = INIT_OFFSET_PLAYGROUND_Y;
- initGUI();
- if (drawPic(sdlRect, playgound) != 0)
+ if (drawPic(sdlRect, playgound, screen) != 0)
  {
    return 3;
  }
-  
-/*
-  Uint32 colorkey3 = SDL_MapRGB( pin -> format, 255, 255, 255);
-  SDL_SetColorKey(pin, SDL_SRCCOLORKEY, colorkey3); ///<	Set pin key color to white
-*/
+ 
   return 0;
+  
+}
+
+void runGame(void)
+{
+  tail.y = height / 2;
+  tail.x = width / 2;
+  head.y = height / 2;
+  head.x = width / 2;
+  matrix[head.y][head.x] = 1;
+  sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
+  sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
+  drawPic(sdlRect, snake, playgound);
+  
 }
 
 void quitGame()

@@ -2,7 +2,8 @@
 
 **game tests**
 
-  - Init works
+  ~~- Init works~~
+  ~~- Drow snake~~
   - Move snake up
   - Move snake down
   - Move snake left

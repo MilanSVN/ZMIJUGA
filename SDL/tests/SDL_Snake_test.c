@@ -57,7 +57,7 @@ TEST(SDL_Snake_Animation, drawPicture)
   sdlRectT.x = 10;
   sdlRectT.y = 10;
   uint8_t a = 5;
-  a = drawPic (sdlRectT, pic);
+  a = drawPic (sdlRectT, pic, screen);
   TEST_ASSERT_EQUAL(0, a);
   
 }
@@ -67,7 +67,7 @@ TEST(SDL_Snake_Animation, drawPlayground)
 {
   sdlRectT.x = INIT_OFFSET_PLAYGROUND_X;
   sdlRectT.y = INIT_OFFSET_PLAYGROUND_Y;
-  drawPic (sdlRectT, background);
+  drawPic (sdlRectT, background, screen);
   
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(INIT_OFFSET_PLAYGROUND_X, sdlRectT.x);
