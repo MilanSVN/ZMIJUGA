@@ -27,8 +27,9 @@ typedef struct position
 
 uint8_t initGame(void);
 void runGame(void);
-void setDirection(uint8_t pomDir);
 
+void setGameOver(void);
+void setDirection(uint8_t pomDir);
 void quit();
 //uint8_t getTest();
 #endif

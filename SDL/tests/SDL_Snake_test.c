@@ -67,6 +67,18 @@ TEST(SDL_Snake_Animation, drawPlayground)
 {
   sdlRectT.x = INIT_OFFSET_PLAYGROUND_X;
   sdlRectT.y = INIT_OFFSET_PLAYGROUND_Y;
+  drawPlayground(sdlRectT);
+  SDL_Delay(5000);
+  drawSnake(sdlRectT);
+  SDL_Delay(5000);
+  unDrowSnake(sdlRectT);
+  SDL_Delay(5000);
+
+//   drowPlayground(sdlRectT);
+//   drowSnake(sdlRectT);
+//   SDL_Delay(5000);
+//   unDrowSnake(sdlRectT);
+//   SDL_Delay(5000);
   drawPic (sdlRectT, background, screen);
   
   sdlRectT = getPositionForLastPic();

@@ -15,6 +15,8 @@ static SDL_Surface* playgound = NULL;
 static SDL_Surface* snake = NULL; 
 static SDL_Surface* delSnake = NULL; 
 
+static SDL_Event event;
+
 /**
  * @brief Function for testing
  * @retval SDL_Rect Position For Last Pic .
@@ -28,11 +30,42 @@ SDL_Rect getPositionForLastPic(void)
  * @brief Get screen
  * @retval SDL_Surface* screen
  */
-SDL_Surface* getScreen(void)
+// SDL_Surface* getScreen(void)
+// {
+//   return screen;
+// }
+void unDrowSnake(SDL_Rect dstOffset)
 {
-  return screen;
+  drawPic (dstOffset, delSnake, screen);
+}
+void drawSnake(SDL_Rect dstOffset)
+{
+  drawPic (dstOffset, snake, screen);
 }
 
+void drawPlayground(SDL_Rect dstOffset)
+{
+  drawPic (dstOffset, playgound, screen);
+}
+
+void handleUserCommands(void)
+{
+	if (SDL_PollEvent(&event))
+	{
+		
+		if (event.type == SDL_KEYDOWN)
+		{
+			SDLKey keyPressed = event.key.keysym.sym;
+			if ( keyPressed == SDLK_ESCAPE ) setGameOver();
+			if ( keyPressed == SDLK_RIGHT ) setDirection(RIGHT);
+			if ( keyPressed == SDLK_DOWN )  setDirection(DOWN);
+			if ( keyPressed == SDLK_LEFT ) setDirection(LEFT);
+			if ( keyPressed == SDLK_UP ) setDirection(UP);
+			//if ( keyPressed == SDLK_SPACE ) return 4;
+		}
+	}
+	
+}
 uint8_t initGUI(void)
 {
 
@@ -43,8 +76,8 @@ uint8_t initGUI(void)
   }
   
   screen = SDL_SetVideoMode(700, 700, 32, SDL_DOUBLEBUF); 
-  background = SDL_LoadBMP("../resources/background.bmp");
-  playgound = SDL_LoadBMP("../resources/background.bmp");
+  background = SDL_LoadBMP("../resources/playgound.bmp");
+  playgound = SDL_LoadBMP("../resources/playgound.bmp");
   snake = SDL_LoadBMP("../resources/snake.bmp");
   delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
 
@@ -55,6 +88,10 @@ uint8_t initGUI(void)
   }
 
   SDL_WM_SetCaption("Snake", NULL);
+  
+  /* Enable Unicode translation */
+  SDL_EnableUNICODE( 1 );
+  SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL/8);
 /*
   Uint32 colorkey3 = SDL_MapRGB( pin -> format, 255, 255, 255);
   SDL_SetColorKey(pin, SDL_SRCCOLORKEY, colorkey3); ///<	Set pin key color to white
