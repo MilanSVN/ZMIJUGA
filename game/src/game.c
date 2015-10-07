@@ -7,6 +7,9 @@
 
 #include "game.h"
 
+static void moveHead();
+static void drawSnake();
+
 static SDL_Rect sdlRect;
 
 static SDL_Surface* background = NULL;
@@ -19,14 +22,53 @@ uint8_t matrix[PLAYGROUND_Y / SNAKE_Y][PLAYGROUND_X / SNAKE_X];
 uint8_t height;
 uint8_t width;
 uint8_t direction;
+uint8_t gameOver;
+uint8_t pomDirection;
+
 POSITION head;
 POSITION tail;
 
+
+
+void setDirection(uint8_t pomDir)
+{
+  pomDirection = pomDir;
+}
+
+static void drawSnake()
+{
+  sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
+  sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
+  drawPic(sdlRect, snake, playgound);
+}
+
+static void moveHead()
+{
+  uint8_t newPos = matrix[head.y][head.x];
+  if(newPos == 0)
+  {
+    drawSnake();
+    //enter moveTail
+  }
+  else if(newPos == FOOD)
+  {
+    
+  }
+  else if(newPos > 1)
+  {
+    gameOver = 1;
+  }
+ 
+  
+}
 
 uint8_t initGame(void)
 {
   height = PLAYGROUND_Y / SNAKE_Y;
   width = PLAYGROUND_X / SNAKE_X;
+  pomDirection = RIGHT;
+  direction = RIGHT;
+  gameOver = 0;
   
   uint8_t i;
   uint8_t j;
@@ -72,11 +114,35 @@ void runGame(void)
   tail.x = width / 2;
   head.y = height / 2;
   head.x = width / 2;
-  matrix[head.y][head.x] = 1;
+  //matrix[head.y][head.x] = RIGHT;
   sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
   sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
   drawPic(sdlRect, snake, playgound);
   
+  while(gameOver == 0)
+  {
+    direction = pomDirection; //< sets direction
+    if(direction == UP)
+    {
+      matrix[head.y][head.x] = UP;
+      head.y = (head.y + 1) % height;
+      moveHead();
+    }
+    else if (direction == DOWN)
+    {
+      
+    }
+    else if (direction == LEFT)
+    {
+      
+    }
+    else if (direction == RIGHT)
+    {
+      
+    }
+    gameOver = 1; //< For test 3
+    
+  }
 }
 
 void quitGame()
