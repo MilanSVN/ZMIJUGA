@@ -8,7 +8,7 @@
   ~~- Move snake down~~
   ~~- Move snake left~~
   ~~- Move snake right~~
-  - Move tail
+  ~~- Move tail~~
   - Create food
   - Eat food
  

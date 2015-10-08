@@ -16,10 +16,13 @@ TEST_GROUP(game);
 TEST_GROUP_RUNNER(game)
 {
   RUN_TEST_CASE(game, Init);
-  RUN_TEST_CASE(game, drawSnake);
-  RUN_TEST_CASE(game, moveUp);
-  RUN_TEST_CASE(game, moveDown);
-  RUN_TEST_CASE(game, moveLeft);
+  //For runing next 5 tests comment line 52 in game.c {moveTail()}
+  //RUN_TEST_CASE(game, drawSnake);
+  //RUN_TEST_CASE(game, moveUp);
+  //RUN_TEST_CASE(game, moveDown);
+  //RUN_TEST_CASE(game, moveLeft);
+  //RUN_TEST_CASE(game, moveRight);
+  RUN_TEST_CASE(game, moveTail);
 }
 
 TEST_SETUP(game)
@@ -97,6 +100,17 @@ TEST(game, moveRight)
   runGame();
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X + SNAKE_X, sdlRectT.x);
+  TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
+  SDL_Delay(500);
+}
+// Sedmi test - move tail
+TEST(game, moveTail)
+{
+  initGame();
+  setDirection(RIGHT);
+  runGame();
+  sdlRectT = getPositionForLastPic();
+  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
   SDL_Delay(500);
 }
