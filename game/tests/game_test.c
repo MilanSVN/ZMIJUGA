@@ -49,9 +49,10 @@ TEST(game, Init)
 // Drugi test - draw snake
 TEST(game, drawSnake)
 {
+  initGame();
   runGame();
   sdlRectT = getPositionForLastPic();
-  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
+  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X + SNAKE_X, sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
   SDL_Delay(500);
 }
@@ -85,6 +86,17 @@ TEST(game, moveLeft)
   runGame();
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X - SNAKE_X, sdlRectT.x);
+  TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
+  SDL_Delay(500);
+}
+// Sesti test - move right
+TEST(game, moveRight)
+{
+  initGame();
+  setDirection(RIGHT);
+  runGame();
+  sdlRectT = getPositionForLastPic();
+  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X + SNAKE_X, sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
   SDL_Delay(500);
 }
