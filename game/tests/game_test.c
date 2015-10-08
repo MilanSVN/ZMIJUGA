@@ -19,6 +19,7 @@ TEST_GROUP_RUNNER(game)
   RUN_TEST_CASE(game, drawSnake);
   RUN_TEST_CASE(game, moveUp);
   RUN_TEST_CASE(game, moveDown);
+  RUN_TEST_CASE(game, moveLeft);
 }
 
 TEST_SETUP(game)
@@ -74,5 +75,16 @@ TEST(game, moveDown)
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y - SNAKE_Y, sdlRectT.y);
+  SDL_Delay(500);
+}
+// Peti test - move left
+TEST(game, moveLeft)
+{
+  initGame();
+  setDirection(LEFT);
+  runGame();
+  sdlRectT = getPositionForLastPic();
+  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X - SNAKE_X, sdlRectT.x);
+  TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
   SDL_Delay(500);
 }

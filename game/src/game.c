@@ -141,7 +141,13 @@ void runGame(void)
     }
     else if (direction == LEFT)
     {
-      
+      matrix[head.y][head.x] = LEFT;
+      head.x--;
+      if(head.x < 0) 
+      {
+	head.x = width;
+      }
+      moveHead(); 
     }
     else if (direction == RIGHT)
     {
