@@ -187,7 +187,8 @@ void runGame(void)
       head.x = (head.x + 1) % width;
       moveHead();      
     }
-    gameOver = 1; //< For test 3,4,5,6,7
+    //gameOver = 1; //< For test 3,4,5,6,7
+    SDL_Delay(500);
     
   }
 }

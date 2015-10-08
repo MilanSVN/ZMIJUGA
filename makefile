@@ -6,7 +6,7 @@ score:
 	$(MAKE) -C score all
 
 SDL_Snake:
-	$(MAKE) -C SDL_Snake all
+	$(MAKE) -C SDL all
 
 main:
 	$(MAKE) -C main all
