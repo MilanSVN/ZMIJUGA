@@ -99,7 +99,7 @@ uint8_t initGame(void)
   
  sdlRect.x = INIT_OFFSET_PLAYGROUND_X;
  sdlRect.y = INIT_OFFSET_PLAYGROUND_Y;
- //drawPlaygorund(sdlRect);
+ drawPlayground(sdlRect);
 //  if (drawPic(sdlRect, playgound, screen) != 0)
 //  {
 //    return 3;
@@ -131,7 +131,13 @@ void runGame(void)
     }
     else if (direction == DOWN)
     {
-      
+      matrix[head.y][head.x] = DOWN;
+      head.y--;
+      if(head.y < 0) 
+      {
+	head.y = height;
+      }
+      moveHead();      
     }
     else if (direction == LEFT)
     {
@@ -141,7 +147,7 @@ void runGame(void)
     {
       
     }
-    //gameOver = 1; //< For test 3
+    gameOver = 1; //< For test 3,4
     
   }
 }

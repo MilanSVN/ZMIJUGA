@@ -19,7 +19,7 @@ TEST_GROUP_RUNNER(SDL_Snake_Animation)
 	RUN_TEST_CASE(SDL_Snake_Animation, SDL_Init);
 	RUN_TEST_CASE(SDL_Snake_Animation, drawPicture);
 	RUN_TEST_CASE(SDL_Snake_Animation, drawPlayground);
-	//RUN_TEST_CASE(SDL_Snake_Animation, Animation);
+
 }
 
 TEST_SETUP(SDL_Snake_Animation)
@@ -27,8 +27,8 @@ TEST_SETUP(SDL_Snake_Animation)
   initGUI();
  
   screen = SDL_SetVideoMode(700, 700, 32, SDL_DOUBLEBUF); 
-  background = SDL_LoadBMP("../resources/background.bmp");
-  playgound = SDL_LoadBMP("../resources/background.bmp");
+  background = SDL_LoadBMP("../resources/playground.bmp");
+  playgound = SDL_LoadBMP("../resources/playgound.bmp");
   snake = SDL_LoadBMP("../resources/snake.bmp");
   delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
 }
@@ -37,12 +37,7 @@ TEST_TEAR_DOWN(SDL_Snake_Animation)
 {
   quit();
   SDL_FreeSurface(pic);
-  
-//   SDL_FreeSurface(background);
-//   SDL_FreeSurface(snake);
-//   SDL_FreeSurface(screen);	
-//   SDL_FreeSurface(delSnake);
-//   SDL_FreeSurface(playgound);
+
 }
 
 // Prvi test - SDL inicijalizacija
@@ -74,11 +69,6 @@ TEST(SDL_Snake_Animation, drawPlayground)
   unDrowSnake(sdlRectT);
   SDL_Delay(5000);
 
-//   drowPlayground(sdlRectT);
-//   drowSnake(sdlRectT);
-//   SDL_Delay(5000);
-//   unDrowSnake(sdlRectT);
-//   SDL_Delay(5000);
   drawPic (sdlRectT, background, screen);
   
   sdlRectT = getPositionForLastPic();

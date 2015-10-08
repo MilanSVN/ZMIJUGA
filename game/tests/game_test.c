@@ -18,6 +18,7 @@ TEST_GROUP_RUNNER(game)
   RUN_TEST_CASE(game, Init);
   RUN_TEST_CASE(game, drawSnake);
   RUN_TEST_CASE(game, moveUp);
+  RUN_TEST_CASE(game, moveDown);
 }
 
 TEST_SETUP(game)
@@ -62,5 +63,16 @@ TEST(game, moveUp)
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y + SNAKE_Y, sdlRectT.y);
+  SDL_Delay(500);
+}
+// Cetvrti test - move down
+TEST(game, moveDown)
+{
+  initGame();
+  setDirection(DOWN);
+  runGame();
+  sdlRectT = getPositionForLastPic();
+  TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
+  TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y - SNAKE_Y, sdlRectT.y);
   SDL_Delay(500);
 }
