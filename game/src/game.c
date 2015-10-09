@@ -67,9 +67,10 @@ static void moveTail()
   sdlRect.y = tail.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
   unDrowSnake(sdlRect);
   uint8_t tailDirection = matrix[tail.y][tail.x];
+  matrix[tail.y][tail.x] = 0;
   if(tailDirection == UP)
   {
-    tail.y = (tail.y + 1) % height;
+    tail.y = (tail.y + 1) % (height);
   }
   else if(tailDirection == DOWN)
   {
@@ -89,7 +90,7 @@ static void moveTail()
   }
   else if(tailDirection == RIGHT)
   {
-    tail.x = (tail.x + 1) % width;
+    tail.x = (tail.x + 1) % (width);
   }
   
 }
@@ -111,38 +112,12 @@ uint8_t initGame(void)
       matrix[i][j] = 0;
     }
   }
-  
 
-  background = SDL_LoadBMP("../resources/background.bmp");
-  playgound = SDL_LoadBMP("../resources/background.bmp");
-  snake = SDL_LoadBMP("../resources/snake.bmp");
-  delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
-  //screen = getScreen();
-
-  if ( playgound == NULL || background == NULL || snake == NULL || delSnake == NULL)
-  {
-    return 2;
-  }
-  
-  Uint32 colorkey1 = SDL_MapRGB( snake -> format, 100, 100, 100);
-  SDL_SetColorKey(snake, SDL_SRCCOLORKEY, colorkey1); ///< Set snake key color
-  //Uint32 colorkey2 = SDL_MapRGB( snake -> format, 110, 100, 100);
-  SDL_SetColorKey(playgound, SDL_SRCCOLORKEY, colorkey1); ///< Set snake key color
   
  sdlRect.x = INIT_OFFSET_PLAYGROUND_X;
  sdlRect.y = INIT_OFFSET_PLAYGROUND_Y;
  drawPlayground(sdlRect);
-//  if (drawPic(sdlRect, playgound, screen) != 0)
-//  {
-//    return 3;
-//  }
- 
-  return 0;
-  
-}
 
-void runGame(void)
-{
   tail.y = height / 2;
   tail.x = (width / 2);
   head.y = height / 2;
@@ -151,17 +126,25 @@ void runGame(void)
   sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
   sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
   drawSnake(sdlRect);
+ 
+  return 0;
+  
+}
+
+void runGame(void)
+{
+
   
   while(gameOver == 0)
   {
     handleUserCommands();
-    if(direction == UP)
+    if(direction == DOWN)
     {
       matrix[head.y][head.x] = UP;
-      head.y = (head.y + 1) % height;
+      head.y = (head.y + 1) % (height);
       moveHead();
     }
-    else if (direction == DOWN)
+    else if (direction == UP)
     {
       matrix[head.y][head.x] = DOWN;
       head.y--;
@@ -184,11 +167,11 @@ void runGame(void)
     else if (direction == RIGHT)
     {
       matrix[head.y][head.x] = RIGHT;
-      head.x = (head.x + 1) % width;
+      head.x = (head.x + 1) % (width);
       moveHead();      
     }
     //gameOver = 1; //< For test 3,4,5,6,7
-    SDL_Delay(500);
+    
     
   }
 }

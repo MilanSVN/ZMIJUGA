@@ -8,8 +8,8 @@
 #include "../../game/src/game.h"
 
 #define INIT_OFFSET_X 40
-#define INIT_OFFSET_PLAYGROUND_X 10
-#define INIT_OFFSET_PLAYGROUND_Y 100
+#define INIT_OFFSET_PLAYGROUND_X 0
+#define INIT_OFFSET_PLAYGROUND_Y 0
 #define PLAYGROUND_X 600
 #define PLAYGROUND_Y 600
 #define SNAKE_X 10

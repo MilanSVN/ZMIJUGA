@@ -41,6 +41,7 @@ void unDrowSnake(SDL_Rect dstOffset)
 void drawSnake(SDL_Rect dstOffset)
 {
   drawPic (dstOffset, snake, screen);
+  SDL_Delay(100); //< Speed of game
 }
 
 void drawPlayground(SDL_Rect dstOffset)
@@ -76,10 +77,10 @@ uint8_t initGUI(void)
   }
   
   screen = SDL_SetVideoMode(700, 700, 32, SDL_DOUBLEBUF); 
-  background = SDL_LoadBMP("../resources/playgound.bmp");
-  playgound = SDL_LoadBMP("../resources/playgound.bmp");
-  snake = SDL_LoadBMP("../resources/snake.bmp");
-  delSnake = SDL_LoadBMP("../resources/delSnake.bmp");
+  //background = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/playgound.bmp");
+  playgound = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/playgound.bmp");
+  snake = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/snake.bmp");
+  delSnake = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/delSnake.bmp");
 
 
   if (screen == NULL || background == NULL || snake == NULL || delSnake == NULL)

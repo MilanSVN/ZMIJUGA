@@ -107,10 +107,10 @@ TEST(game, moveRight)
 TEST(game, moveTail)
 {
   initGame();
-  setDirection(RIGHT);
+  //setDirection(RIGHT);
   runGame();
   sdlRectT = getPositionForLastPic();
   TEST_ASSERT_EQUAL(PLAYGROUND_X / 2 + INIT_OFFSET_PLAYGROUND_X , sdlRectT.x);
   TEST_ASSERT_EQUAL(PLAYGROUND_Y / 2 + INIT_OFFSET_PLAYGROUND_Y , sdlRectT.y);
-  SDL_Delay(500);
+  //SDL_Delay(500);
 }
