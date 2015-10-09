@@ -1,9 +1,14 @@
 CC=gcc
 
-all: main
+all: score tests 
 
-.PHONY: main
+.PHONY: game tests build
 
-main:
+score:
+	$(CC) -c src/score.c -o ../build/score.o
 
+tests:
+	$(MAKE) -C tests all
 
+build:
+	$(MAKE) -C build all

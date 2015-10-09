@@ -33,14 +33,7 @@ TEST_SETUP(game)
 
 TEST_TEAR_DOWN(game)
 {
-//   quit();
-//   SDL_FreeSurface(pic);
-  
-//   SDL_FreeSurface(background);
-//   SDL_FreeSurface(snake);
-//   SDL_FreeSurface(screen);	
-//   SDL_FreeSurface(delSnake);
-//   SDL_FreeSurface(playgound);
+
 }
 
 // Prvi test

@@ -14,8 +14,12 @@ static SDL_Surface* background = NULL;
 static SDL_Surface* playgound = NULL;
 static SDL_Surface* snake = NULL; 
 static SDL_Surface* delSnake = NULL; 
+static SDL_Surface* food = NULL;
+static SDL_Surface* text = NULL;
+//static TTF_Font *font = NULL;
 
 static SDL_Event event;
+
 
 /**
  * @brief Function for testing
@@ -37,6 +41,23 @@ SDL_Rect getPositionForLastPic(void)
 void unDrowSnake(SDL_Rect dstOffset)
 {
   drawPic (dstOffset, delSnake, screen);
+}
+
+void drawScore(uint8_t valueOfScore)
+{
+  printf("/n%d",valueOfScore);
+//    // Write text to surface
+//    SDL_Color text_color = {255, 255, 255};
+//    
+//    text = TTF_RenderText_Solid(font, ((char)valueOfScore), text_color);
+//    
+//    sdlRect.x = 100;
+//    sdlRect.y = 25;
+//    drawPic (sdlRect, text, screen);
+}
+void drawFood(SDL_Rect dstOffset)
+{
+  drawPic (dstOffset, food, screen);
 }
 void drawSnake(SDL_Rect dstOffset)
 {
@@ -81,9 +102,12 @@ uint8_t initGUI(void)
   playgound = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/playgound.bmp");
   snake = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/snake.bmp");
   delSnake = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/delSnake.bmp");
+  food = SDL_LoadBMP("/home/milan/ZMIJUGA/resources/food.bmp");
+  
+  //font = TTF_OpenFont("FreeSans.ttf", 24);
 
 
-  if (screen == NULL || background == NULL || snake == NULL || delSnake == NULL)
+  if (screen == NULL || background == NULL || snake == NULL || delSnake == NULL || food == NULL)
   {
     return 2;
   }
@@ -93,10 +117,13 @@ uint8_t initGUI(void)
   /* Enable Unicode translation */
   SDL_EnableUNICODE( 1 );
   SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL/8);
-/*
-  Uint32 colorkey3 = SDL_MapRGB( pin -> format, 255, 255, 255);
-  SDL_SetColorKey(pin, SDL_SRCCOLORKEY, colorkey3); ///<	Set pin key color to white
-*/
+  
+//    SDL_Color text_color = {255, 255, 255};
+//    text = TTF_RenderText_Solid(font, "Score:", text_color);
+//    
+//    sdlRect.x = 50;
+//    sdlRect.y = 25;
+//    drawPic (sdlRect, text, screen);
   
   return 0;
 }
@@ -123,11 +150,13 @@ uint8_t drawPic (SDL_Rect dstOffset, SDL_Surface* pic, SDL_Surface* base)
 
 void quit()
 {
-  SDL_FreeSurface(background);
   SDL_FreeSurface(snake);
   SDL_FreeSurface(screen);	
   SDL_FreeSurface(delSnake);
   SDL_FreeSurface(playgound);
+  SDL_FreeSurface(food);
+  SDL_FreeSurface(background);
+  SDL_FreeSurface(text);
   
   SDL_Quit(); 
 }

@@ -2,10 +2,12 @@
 #define _GAME_H
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <inttypes.h>
 
 #include "../../include/SDL.h"
 #include "../../SDL/src/SDL_Snake.h"
+#include "../../score/src/score.h"
 
 #define FOOD  1
 
@@ -30,7 +32,7 @@ void runGame(void);
 
 void setGameOver(void);
 void setDirection(uint8_t pomDir);
-void quit();
-//uint8_t getTest();
+
+
 #endif
 

@@ -9,6 +9,8 @@
 
 static void moveHead();
 static void moveTail();
+static uint8_t sRandom();
+static void putFood();
 
 
 static SDL_Rect sdlRect;
@@ -29,10 +31,46 @@ uint8_t gameOver;
 POSITION head;
 POSITION tail;
 
+static void putFood()
+{
+  uint8_t fX = sRandom() % width;
+  uint8_t fY = sRandom() % height;
+  while(matrix[fY][fX] != 0)
+  {
+    fX = sRandom() % width;
+    fY = sRandom() % height;
+  }
+  matrix[fY][fX] = FOOD;
+  sdlRect.x = fX * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
+  sdlRect.y = fY * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
+  drawFood(sdlRect);
+}
 
+static uint8_t sRandom()
+{
+  uint8_t z;
+  z = (9 * z + 3) % 127;
+  return z;
+}
 
 void setDirection(uint8_t pomDir)
 {
+  if(direction == UP && pomDir == DOWN)
+  {
+    return;
+  }
+  if(direction == DOWN && pomDir == UP)
+  {
+    return;
+  }
+  if(direction == LEFT && pomDir == RIGHT)
+  {
+    return;
+  }
+  if(direction == RIGHT && pomDir == LEFT)
+  {
+    return;
+  }
   direction = pomDir;
 }
 
@@ -53,7 +91,11 @@ static void moveHead()
   }
   else if(newPos == FOOD)
   {
-    
+    sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
+    sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
+    drawSnake(sdlRect);
+    putFood();
+    scorepp();
   }
   else if(newPos > 1)
   {
@@ -68,24 +110,24 @@ static void moveTail()
   unDrowSnake(sdlRect);
   uint8_t tailDirection = matrix[tail.y][tail.x];
   matrix[tail.y][tail.x] = 0;
-  if(tailDirection == UP)
+  if(tailDirection == DOWN)
   {
     tail.y = (tail.y + 1) % (height);
   }
-  else if(tailDirection == DOWN)
-  {
+  else if(tailDirection == UP)
+  { 
     tail.y--;
-    if(tail.y < 0)
+    if(tail.y <= 0)
     {
-      tail.y = height;
+      tail.y = height - 1;
     }
   }
   else if(tailDirection == LEFT)
   {
     tail.x--;
-    if(tail.x < 0)
+    if(tail.x <= 0)
     {
-      tail.x = width;
+      tail.x = width - 1;
     }
   }
   else if(tailDirection == RIGHT)
@@ -113,19 +155,20 @@ uint8_t initGame(void)
     }
   }
 
-  
- sdlRect.x = INIT_OFFSET_PLAYGROUND_X;
- sdlRect.y = INIT_OFFSET_PLAYGROUND_Y;
- drawPlayground(sdlRect);
+  sdlRect.x = INIT_OFFSET_PLAYGROUND_X;
+  sdlRect.y = INIT_OFFSET_PLAYGROUND_Y;
+  drawPlayground(sdlRect);
 
   tail.y = height / 2;
-  tail.x = (width / 2);
+  tail.x = width / 2;
   head.y = height / 2;
   head.x = width / 2;
   matrix[tail.y][tail.x] = RIGHT;
   sdlRect.x = head.x * SNAKE_X + INIT_OFFSET_PLAYGROUND_X;
   sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
   drawSnake(sdlRect);
+  
+  putFood();
  
   return 0;
   
@@ -133,24 +176,22 @@ uint8_t initGame(void)
 
 void runGame(void)
 {
-
-  
   while(gameOver == 0)
   {
     handleUserCommands();
     if(direction == DOWN)
     {
-      matrix[head.y][head.x] = UP;
+      matrix[head.y][head.x] = DOWN;
       head.y = (head.y + 1) % (height);
       moveHead();
     }
     else if (direction == UP)
     {
-      matrix[head.y][head.x] = DOWN;
+      matrix[head.y][head.x] = UP;
       head.y--;
-      if(head.y < 0) 
+      if(head.y <= 0) 
       {
-	head.y = height;
+	head.y = height - 1;
       }
       moveHead();      
     }
@@ -158,9 +199,9 @@ void runGame(void)
     {
       matrix[head.y][head.x] = LEFT;
       head.x--;
-      if(head.x < 0) 
+      if(head.x <= 0) 
       {
-	head.x = width;
+	head.x = width - 1;
       }
       moveHead(); 
     }
@@ -176,15 +217,4 @@ void runGame(void)
   }
 }
 
-void quitGame()
-{
-//   SDL_FreeSurface(background);
-//   SDL_FreeSurface(snake);
-//   SDL_FreeSurface(screen);	
-//   SDL_FreeSurface(delSnake);
-//   SDL_FreeSurface(playgound);
-//   
-//   SDL_Quit(); 
-}
-// SDL GUI END
 

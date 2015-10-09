@@ -1,4 +1,4 @@
-all: score SDL_Snake main build game
+all: score SDL_Snake game main build
 
 .PHONY: score SDL_Snake main build game
 
