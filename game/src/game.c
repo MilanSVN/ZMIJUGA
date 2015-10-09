@@ -95,7 +95,7 @@ static void moveHead()
     sdlRect.y = head.y * SNAKE_Y + INIT_OFFSET_PLAYGROUND_Y;
     drawSnake(sdlRect);
     putFood();
-    //scorepp();
+    scorepp();
   }
   else if(newPos > 1)
   {

@@ -46,7 +46,7 @@ void unDrowSnake(SDL_Rect dstOffset)
 void drawScore(uint8_t valueOfScore)
 {
   printf("\n YOUR SCORE IS: %d \n",valueOfScore);
-  SDL_Delay(5000);
+  SDL_Delay(50);
 //    // Write text to surface
 //    SDL_Color text_color = {255, 255, 255};
 //    
