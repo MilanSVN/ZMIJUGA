@@ -45,7 +45,8 @@ void unDrowSnake(SDL_Rect dstOffset)
 
 void drawScore(uint8_t valueOfScore)
 {
-  printf("/n%d",valueOfScore);
+  printf("\n YOUR SCORE IS: %d \n",valueOfScore);
+  SDL_Delay(5000);
 //    // Write text to surface
 //    SDL_Color text_color = {255, 255, 255};
 //    
@@ -62,7 +63,7 @@ void drawFood(SDL_Rect dstOffset)
 void drawSnake(SDL_Rect dstOffset)
 {
   drawPic (dstOffset, snake, screen);
-  SDL_Delay(100); //< Speed of game
+  SDL_Delay(50); //< Speed of game
 }
 
 void drawPlayground(SDL_Rect dstOffset)
